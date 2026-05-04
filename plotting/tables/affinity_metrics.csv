@@ -1,0 +1,8 @@
+method,n,RMSE,Spearman rho
+molecular_weight,494,,0.483
+clogp,494,,0.174
+aev-plig,494,1.09,0.227
+gnina,494,1.528,0.453
+smina,494,1.53,0.255
+aqaffinity,494,1.632,0.117
+boltz-2,494,1.091,0.397
