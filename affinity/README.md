@@ -22,6 +22,8 @@ affinity/
 
 Blank `experimental_pKD` means no affinity value was available for that structure after filtering.
 
+`reference/fragalysis_compound_reference.csv` maps `fragalysis_code` to `smiles`
+
 ## Predictions
 
 Each file in `predictions/` has:
@@ -44,6 +46,6 @@ AQAffinity: predicted_affinity = predicted_affinity_score + 6
 Boltz-2:    predicted_affinity = 6 - predicted_affinity_score
 ```
 
-# Analysis
+## Analysis
 
 Analysis was conducted at the compound-level, i.e. predictions from multiple structures for the same compound were averaged.

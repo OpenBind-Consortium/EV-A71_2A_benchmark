@@ -33,14 +33,14 @@ def main() -> None:
     outputs_dir.mkdir(parents=True, exist_ok=True)
 
     reference = pd.read_csv(reference_path)
-    required_reference_cols = {"fragalysis_code", "raw_smiles", "experimental_pKD"}
+    required_reference_cols = {"fragalysis_code", "smiles", "experimental_pKD"}
     missing_reference_cols = required_reference_cols - set(reference.columns)
     if missing_reference_cols:
         raise ValueError(
             f"{reference_path} is missing columns: {sorted(missing_reference_cols)}"
         )
 
-    reference = reference.dropna(subset=["raw_smiles", "experimental_pKD"]).copy()
+    reference = reference.dropna(subset=["smiles", "experimental_pKD"]).copy()
     prediction_files = sorted(predictions_dir.glob("*_predictions.csv"))
     if not prediction_files:
         raise FileNotFoundError(f"No *_predictions.csv files found in {predictions_dir}")
@@ -62,7 +62,7 @@ def main() -> None:
             how="left",
         )
         compound = (
-            merged.groupby("raw_smiles", as_index=False)
+            merged.groupby("smiles", as_index=False)
             .agg(
                 experimental_pKD=("experimental_pKD", "first"),
                 predicted_affinity=("predicted_affinity", "mean"),
@@ -70,7 +70,7 @@ def main() -> None:
                 n_structures_with_prediction=("predicted_affinity", "count"),
                 fragalysis_codes=("fragalysis_code", join_codes),
             )
-            .sort_values("raw_smiles")
+            .sort_values("smiles")
         )
         compound.insert(0, "method", method)
         output_parts.append(compound)

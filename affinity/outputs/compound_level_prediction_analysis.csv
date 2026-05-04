@@ -1,4 +1,4 @@
-method,raw_smiles,experimental_pKD,predicted_affinity,n_structures_with_reference,n_structures_with_prediction,fragalysis_codes
+method,smiles,experimental_pKD,predicted_affinity,n_structures_with_reference,n_structures_with_prediction,fragalysis_codes
 aev_plig,C#C[C@H](NCCc1cocn1)c1nn(C)c2ccccc12 |&1:2|,4.716801953096995,5.7367907,1,1,A71EV2A-x4426a
 aev_plig,"C#C[C@H]1CCCC[C@@H]1OC(=O)N1CCC[C@H](C(N)=O)C1 |o1:2,7|",4.011869615687259,5.6162424,1,1,A71EV2A-x5747a
 aev_plig,C#Cc1ccc(C)c(OC(=O)N2CCC[C@H](C(N)=O)C2)c1 |a:15|,3.8964015060220634,6.1770124,1,1,A71EV2A-x5466a

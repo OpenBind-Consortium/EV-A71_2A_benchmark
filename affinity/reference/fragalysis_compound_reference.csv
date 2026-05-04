@@ -1,4 +1,4 @@
-fragalysis_code,raw_smiles,experimental_pKD
+fragalysis_code,smiles,experimental_pKD
 A71EV2A-x1346a,Cc1nn(C)c(C)c1CC(=O)N[C@H](CNC(=O)CCl)c1ccc2ccccc2c1 |&1:12|,4.660785023463071
 A71EV2A-x1445a,COc1cc(NC(=O)C[C@H](C)C(F)(F)F)n(C)n1 |&1:9|,4.632048101200719
 A71EV2A-x1445b,COc1cc(NC(=O)C[C@H](C)C(F)(F)F)n(C)n1 |&1:9|,4.632048101200719
