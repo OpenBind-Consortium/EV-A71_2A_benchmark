@@ -13,6 +13,13 @@ analysis/plotting/
   tables/
 ```
 
+## Dependencies
+
+- `numpy` – numerical operations  
+- `pandas` – table manipulation and I/O (CSV, TSV, Parquet)  
+- `matplotlib` – plotting  
+- `pyarrow` (or `fastparquet`) – required for reading Parquet files  
+
 ## Inputs
 
 The `figure_data/` directory contains the prepared tables used as plotting inputs.
