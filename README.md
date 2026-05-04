@@ -1,6 +1,6 @@
 # OpenBind EV-A71 2A dataset and benchmarks
 
-This repository contains data and reference benchmarks for the first OpenBind release: a structure–affinity dataset for structure-based AI.
+This repository contains data and reference benchmarks for the first [OpenBind](https://openbind.uk/) release: a structure–affinity dataset for structure-based AI.
 
 The release includes experimentally determined protein–ligand complexes, affinity measurements, and benchmark evaluations for docking, cofolding, and affinity prediction methods.
 
