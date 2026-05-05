@@ -43,7 +43,7 @@ To reproduce benchmark figures:
 python plotting/plot_figures.py
 ```
 
-See `[plotting/README.md](https://github.com/OpenBind-Consortium/EV-A71_2A_benchmark/blob/restructure/plotting/README.md)` for details.
+See [`plotting/README.md`](https://github.com/OpenBind-Consortium/EV-A71_2A_benchmark/blob/main/plotting/README.md) for details.
 
 
 ## Citation and license
