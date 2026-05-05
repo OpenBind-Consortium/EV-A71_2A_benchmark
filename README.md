@@ -40,10 +40,10 @@ Unlike many public resources, it provides both structure and affinity across a c
 To reproduce benchmark figures:
 
 ```bash
-python analysis/plotting/plot_benchmark_figures.py
+python plotting/plot_figures.py
 ```
 
-See `analysis/plotting/README.md` for details.
+See `plotting/README.md` for details.
 
 
 ## Citation and license
