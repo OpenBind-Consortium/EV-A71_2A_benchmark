@@ -78,5 +78,5 @@ The default plotting workflow uses:
 - LDDT-PLI threshold: 0.8
 - filtered scaffold-only subsets for the main comparison figures
 
-The RMSD and LDDT-PLI thresholds are currently encoded in the prepared input tables through the `rmsd_valid`, `lddt_pli_valid`, and `success_valid` columns. Changing these thresholds requires regenerating the prepared tables.
+The pocket-aligned RMSD and lDDT-PLI metrics were computed against the ground-truth structures using the [OST compare-ligand-structures](https://openstructure.org/docs/2.11/actions/#comparing-two-structures-with-ligands) command. The thresholds applied to these metrics are encoded in the prepared input tables as the rmsd_valid, lddt_pli_valid, and success_valid columns.
 
