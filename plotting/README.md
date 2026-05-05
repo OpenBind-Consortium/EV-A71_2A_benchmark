@@ -1,78 +1,95 @@
 # Benchmark plotting
 
-This directory contains the plotting code and prepared input tables used to reproduce the benchmark figures.
+This directory contains the plotting code used to generate the EV-A71 2A benchmark figures.
+
+The plotting script reads processed structure data and produces figures and summary tables.
 
 ## Directory structure
 
 ```text
-analysis/plotting/
-  README.md
-  plot_benchmark_figures.py
-  figure_data/
+plotting/
+  plot_figures.py
+  requirements.txt
   figures/
   tables/
 ```
 
-## Dependencies
+Input data is stored outside this directory:
 
-Install the plotting dependencies with:
-
-```bash
-pip install -r requirements.txt
+```text
+structure/
+  processed_outputs/
 ```
 
-- `numpy` – numerical operations  
-- `pandas` – table manipulation and I/O (CSV, TSV, Parquet)  
-- `matplotlib` – plotting  
-- `pyarrow` (or `fastparquet`) – required for reading Parquet files  
+## Dependencies
+
+Install required packages with:
+
+```bash
+pip install -r plotting/requirements.txt
+```
+
+Main dependencies:
+
+- numpy  
+- pandas  
+- matplotlib  
+- pyarrow or fastparquet  
 
 ## Inputs
 
-The `figure_data/` directory contains the prepared tables used as plotting inputs.
+By default, the script expects the following files in:
 
-Required files:
+```text
+structure/processed_outputs/
+```
 
-- `annotated_complexes.csv`: complex-level annotations, including fragment-screen, artefact, and PoseBusters-validity metadata.
-- `final_docking_pose_data.parquet`: prepared pose-level benchmark table for docking methods.
-- `final_cofolding_pose_data.parquet`: prepared pose-level benchmark table for co-folding methods.
+- `annotated_complexes.csv`  
+- `final_docking_pose_data.parquet`  
+- `final_cofolding_pose_data.parquet`  
 
-Optional files:
+The SuCOS/public-data similarity file is read from:
 
-- `tsv_similarity_data_2021-09-30_v2.tsv`: SuCOS similarity data used for the public-data similarity histogram.
+```text
+similarity_metrics/tsv_similarity_data_2021-09-30_v2.tsv
+```
 
-The Parquet files are filtered and standardized versions of the original docking and co-folding results. They contain the same benchmark information in a format that is consistent across methods and directly usable for plotting.
+This can be overridden using `--sucos-file`.
 
 ## Outputs
 
-Running the plotting script writes:
+Generated files are written to:
 
-- figures to `figures/`
-- summary tables to `tables/`
+```text
+plotting/figures/
+plotting/tables/
+```
 
-The tables in `tables/` are the source data for the plotted results and should be regenerated whenever the plotting inputs or benchmark settings change.
+- `figures/`: PNG plots  
+- `tables/`: CSV summary tables used to generate figures  
 
 ## Usage
 
-From the repository root:
+Run from the repository root:
 
 ```bash
-python analysis/plotting/plot_benchmark_figures.py
+python plotting/plot_figures.py
 ```
 
 Optional arguments:
 
 ```bash
-python analysis/plotting/plot_benchmark_figures.py \
-  --figure-data-dir analysis/plotting/figure_data \
-  --figures-dir analysis/plotting/figures \
-  --tables-dir analysis/plotting/tables \
+python plotting/plot_figures.py \
+  --processed-data-dir structure/processed_outputs \
+  --figures-dir plotting/figures \
+  --tables-dir plotting/tables \
   --top-n 25
 ```
 
-To skip the SuCOS/public-data similarity histogram:
+To skip the similarity plot:
 
 ```bash
-python analysis/plotting/plot_benchmark_figures.py --skip-sucos
+python plotting/plot_figures.py --skip-sucos
 ```
 
 ## Benchmark settings
@@ -84,4 +101,4 @@ The default plotting workflow uses:
 - LDDT-PLI threshold: 0.8
 - filtered scaffold-only subsets for the main comparison figures
 
-The pocket-aligned RMSD and lDDT-PLI metrics were computed against the ground-truth structures using the [OST compare-ligand-structures](https://openstructure.org/docs/2.11/actions/#comparing-two-structures-with-ligands) command. The thresholds applied to these metrics are encoded in the prepared input tables as the rmsd_valid, lddt_pli_valid, and success_valid columns.
+The pocket-aligned RMSD and lDDT-PLI metrics were computed against the ground-truth structures using the [OST compare-ligand-structures](https://openstructure.org/docs/2.11/actions/#comparing-two-structures-with-ligands) command. The thresholds applied to these metrics are encoded in the prepared input tables as the `rmsd_valid`, `lddt_pli_valid`, and `success_valid columns`.

@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """
-Generate benchmark figures and summary tables from prepared plotting inputs.
+Generate benchmark figures and summary tables from processed benchmark inputs.
 
 Author: Jochem Nelen (jochem.nelen@stats.ox.ac.uk)
 
 Expected layout:
-  analysis/plotting/
-    plot_benchmark_figures.py
-    figure_data/
-      annotated_complexes.csv
-      final_docking_pose_data.parquet
-      final_cofolding_pose_data.parquet
-      tsv_similarity_data_2021-09-30_v2.tsv
-    figures/
-    tables/
+  EV-A71_2A_benchmark/
+    plotting/
+      plot_figures.py
+      figures/
+      tables/
+    structure/
+      processed_outputs/
+        annotated_complexes.csv
+        final_docking_pose_data.parquet
+        final_cofolding_pose_data.parquet
+        tsv_similarity_data_2021-09-30_v2.tsv
 
 Inputs:
   - annotated_complexes.csv
@@ -22,8 +24,8 @@ Inputs:
   - optional SuCOS/public-data similarity table
 
 Outputs:
-  - PNG figures written to figures/
-  - CSV summary tables written to tables/
+  - PNG figures written to plotting/figures/
+  - CSV summary tables written to plotting/tables/
 
 Notes:
   The input tables are filtered and standardized versions of the original docking
@@ -49,28 +51,17 @@ pd.set_option("display.float_format", "{:.3f}".format)
 # Paths and constants
 # =============================================================================
 
+
 SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent
 
-# Expected layout:
-# analysis/plotting/
-#   make_benchmark_plots.py
-#   figure_data/
-#   figures/
-#   tables/
+DEFAULT_PROCESSED_DATA_DIR = REPO_ROOT / "structure" / "processed_outputs"
+DEFAULT_FIGURES_DIR = SCRIPT_DIR / "figures"
+DEFAULT_TABLES_DIR = SCRIPT_DIR / "tables"
 
-base_dir = SCRIPT_DIR
-figure_data_dir = base_dir / "figure_data"
-out_dir = base_dir / "figures"
-tables_dir = base_dir / "tables"
-
-annotation_file = figure_data_dir / "annotated_complexes.csv"
-sucos_file = figure_data_dir / "tsv_similarity_data_2021-09-30_v2.tsv"
-
-prepared_docking_file = figure_data_dir / "final_docking_pose_data.parquet"
-prepared_cofolding_file = figure_data_dir / "final_cofolding_pose_data.parquet"
-
-out_dir.mkdir(parents=True, exist_ok=True)
-tables_dir.mkdir(parents=True, exist_ok=True)
+DEFAULT_SUCOS_FILE = (
+    REPO_ROOT / "similarity_metrics" / "tsv_similarity_data_2021-09-30_v2.tsv"
+)
 
 RMSD_THRESHOLD = 2.0
 LDDT_PLI_THRESHOLD = 0.8
@@ -157,23 +148,23 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--figure-data-dir",
+        "--processed-data-dir",
         type=Path,
-        default=figure_data_dir,
-        help="Directory containing prepared input tables.",
+        default=DEFAULT_PROCESSED_DATA_DIR,
+        help="Directory containing processed structure benchmark input tables.",
     )
 
     parser.add_argument(
         "--figures-dir",
         type=Path,
-        default=out_dir,
+        default=DEFAULT_FIGURES_DIR,
         help="Output directory for figures.",
     )
 
     parser.add_argument(
         "--tables-dir",
         type=Path,
-        default=tables_dir,
+        default=DEFAULT_TABLES_DIR,
         help="Output directory for summary tables.",
     )
 
@@ -185,9 +176,13 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--skip-sucos",
-        action="store_true",
-        help="Skip SuCOS histogram plotting.",
+        "--sucos-file",
+        type=Path,
+        default=DEFAULT_SUCOS_FILE,
+        help=(
+            "Path to SuCOS/public-data similarity TSV file. "
+            "If the file does not exist, the plot is skipped."
+        ),
     )
 
     return parser.parse_args()
@@ -1565,19 +1560,19 @@ def main() -> None:
 
     args = parse_args()
 
-    figure_data_dir = args.figure_data_dir
-    figures_dir = args.figures_dir
-    tables_dir = args.tables_dir
+    processed_data_dir = args.processed_data_dir.resolve()
+    figures_dir = args.figures_dir.resolve()
+    tables_dir = args.tables_dir.resolve()
     top_n = args.top_n
 
     figures_dir.mkdir(parents=True, exist_ok=True)
     tables_dir.mkdir(parents=True, exist_ok=True)
 
-    annotation_file = figure_data_dir / "annotated_complexes.csv"
-    sucos_file = figure_data_dir / "tsv_similarity_data_2021-09-30_v2.tsv"
+    annotation_file = processed_data_dir / "annotated_complexes.csv"
+    sucos_file = args.sucos_file.resolve()
 
-    prepared_docking_file = figure_data_dir / "final_docking_pose_data.parquet"
-    prepared_cofolding_file = figure_data_dir / "final_cofolding_pose_data.parquet"
+    prepared_docking_file = processed_data_dir / "final_docking_pose_data.parquet"
+    prepared_cofolding_file = processed_data_dir / "final_cofolding_pose_data.parquet"
 
     pose_df = read_prepared_pose_data(
         prepared_docking_file=prepared_docking_file,
@@ -1589,14 +1584,15 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # SuCOS pocket similarity
     # -------------------------------------------------------------------------
-    if (not args.skip_sucos) and sucos_file.exists():
+    if sucos_file.exists():
         sucos_df = read_table(sucos_file)
+
+        sucos_figure_name = f"sucos_histogram_{sucos_file.stem}.png"
+
         plot_sucos_histogram(
             sucos_df,
-            save_path=figures_dir / "SuCOS_pocket_AF3_similarity_cutoff.png",
+            save_path=figures_dir / sucos_figure_name,
         )
-    elif args.skip_sucos:
-        print("\nSkipping SuCOS histogram.")
     else:
         print(f"\nWarning: SuCOS file not found, skipping histogram: {sucos_file}")
 
