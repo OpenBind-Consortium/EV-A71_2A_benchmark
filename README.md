@@ -31,7 +31,7 @@ Unlike many public resources, it provides both structure and affinity across a c
 
 ## Data and external resources
 
-- Dataset: [Zenodo](https://doi.org/10.5281/zenodo.20026661) / [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/landing)  
+- Dataset: [Zenodo](https://doi.org/10.5281/zenodo.20026661) / [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/preview/target/A71EV2A/tas/lb42888-1)  
 - Benchmarks: this repository  
 - Experimental protocols: [OpenBind protocols.io workspace](https://www.protocols.io/workspaces/openbind) 
 
@@ -43,7 +43,7 @@ To reproduce benchmark figures:
 python plotting/plot_figures.py
 ```
 
-See `plotting/README.md` for details.
+See `[plotting/README.md](https://github.com/OpenBind-Consortium/EV-A71_2A_benchmark/blob/restructure/plotting/README.md)` for details.
 
 
 ## Citation and license
