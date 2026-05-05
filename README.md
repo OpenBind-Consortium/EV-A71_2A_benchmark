@@ -48,5 +48,6 @@ See `analysis/plotting/README.md` for details.
 
 ## Citation and license
 
+- Repository license: [Apache 2.0](https://github.com/OpenBind-Consortium/A71EV2A-benchmark/blob/main/LICENSE)
 - Data license: CC0 1.0 Universal  
 - DOI: [10.5281/zenodo.20026661](https://doi.org/10.5281/zenodo.20026661)  
