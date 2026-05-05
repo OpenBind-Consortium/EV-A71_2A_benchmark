@@ -15,6 +15,12 @@ analysis/plotting/
 
 ## Dependencies
 
+Install the plotting dependencies with:
+
+```bash
+pip install -r requirements.txt
+```
+
 - `numpy` – numerical operations  
 - `pandas` – table manipulation and I/O (CSV, TSV, Parquet)  
 - `matplotlib` – plotting  
@@ -79,4 +85,3 @@ The default plotting workflow uses:
 - filtered scaffold-only subsets for the main comparison figures
 
 The pocket-aligned RMSD and lDDT-PLI metrics were computed against the ground-truth structures using the [OST compare-ligand-structures](https://openstructure.org/docs/2.11/actions/#comparing-two-structures-with-ligands) command. The thresholds applied to these metrics are encoded in the prepared input tables as the rmsd_valid, lddt_pli_valid, and success_valid columns.
-
