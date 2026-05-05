@@ -41,7 +41,7 @@ Contains:
 
 - pose-level results for docking methods  
 - ranks and scores  
-- RMSD and lDDT-PLI metrics  
+- RMSD and LDDT-PLI metrics  
 - validity flags used for evaluation  
 
 ---
