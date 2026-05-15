@@ -1084,18 +1084,19 @@ def make_docking_figure_variant(
     annotation_file: Path,
     tables_dir: Path,
     figures_dir: Path,
-    filtered: bool = False,
-    suffix: str = "scaffold_unfiltered",
-    title_suffix: str = "unfiltered",
+    scaffold_only: bool = True,
+    filtered: bool = True,
+    suffix: str = "scaffolds_filtered",
     top_n: int = 25,
 ) -> pd.DataFrame:
     """Create the docking figure variant and write its source table."""
+
     scaffold_docking_summary_df, _ = build_docking_summaries(
         pose_df,
         annotation_file,
         top_n=top_n,
         filtered=filtered,
-        scaffold_only=True,
+        scaffold_only=scaffold_only,
     )
 
     scaffold_docking_summary_df = scaffold_docking_summary_df[
@@ -1137,10 +1138,9 @@ def make_allmethods_figure_variant(
     annotation_file: Path,
     tables_dir: Path,
     figures_dir: Path,
-    scaffold_only: bool = False,
-    filtered: bool = False,
-    suffix: str = "all",
-    title_suffix: str = "Fragments and Scaffolds, unfiltered",
+    scaffold_only: bool = True,
+    filtered: bool = True,
+    suffix: str = "scaffolds_filtered",
     top_n: int = 25,
 ) -> pd.DataFrame:
     """Create the all-methods comparison figure and write its source table."""
@@ -1636,6 +1636,7 @@ def main() -> None:
         annotation_file,
         tables_dir=tables_dir,
         figures_dir=figures_dir,
+        scaffold_only=True,
         filtered=True,
         suffix=f"scaffolds_filtered_top{top_n}",
         top_n=top_n,
@@ -1652,7 +1653,6 @@ def main() -> None:
         scaffold_only=True,
         filtered=True,
         suffix=f"scaffolds_filtered_top{top_n}",
-        title_suffix="Scaffolds only, filtered",
         top_n=top_n,
     )
 
