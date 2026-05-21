@@ -4,6 +4,8 @@ This repository contains data and reference benchmarks for the first [OpenBind](
 
 The release includes experimentally determined protein–ligand complexes, affinity measurements, and benchmark evaluations for docking, cofolding, and affinity prediction methods.
 
+For more background, see our accompanying blog post, [OpenBind’s first release: A structure–affinity dataset for structure-based AI](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/), which discusses the release, the EV-A71 2A protease target, and the benchmark results in more detail.
+
 ## Overview
 
 The dataset focuses on EV-A71 2A protease and contains:
@@ -31,6 +33,7 @@ Unlike many public resources, it provides both structure and affinity across a c
 
 ## Data and external resources
 
+- Blog post: [OpenBind’s first release: A structure–affinity dataset for structure-based AI](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/)
 - Dataset: [Zenodo](https://doi.org/10.5281/zenodo.20026661) / [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/preview/target/A71EV2A/tas/lb42888-1)  
 - Benchmarks: this repository  
 - Fine-tuned OpenFold3-p2 model: [of3p2-ft-ev2a.ckpt](https://openfold3-data.s3.amazonaws.com/openfold3-parameters/openbind/of3p2-ft-ev2a.ckpt). This model was fine-tuned only on the EV-A71 2A fragment-screen fine-tuning data and improves follow-on compound cofolding performance for this target. It likely has reduced performance on other targets, which we will address in future releases.
