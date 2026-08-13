@@ -1,0 +1,7 @@
+label,method,dock_prot,filtered,scaffold_only,rmsd_threshold,lddt_pli_threshold,n_total,n_with_predictions,mean_n_poses,n_rmsd_valid,n_success_valid,rmsd_valid_rate,success_valid_rate,top_n,max_top_n,plot_label,rmsd_valid_pct,success_valid_pct,rmsd_only_pct,comparison_order
+of3p2 cofold top1,of3p2,cofold,True,True,2.0,0.8,802,802,1.0,65,42,0.08104738154613467,0.05236907730673317,1,25,OpenFold3-p2,8.104738154613466,5.236907730673317,2.8678304239401493,0
+of3p2 cofold top25,of3p2,cofold,True,True,2.0,0.8,802,802,25.0,410,285,0.5112219451371571,0.3553615960099751,25,25,OpenFold3-p2,51.12219451371571,35.53615960099751,15.586034912718205,0
+of3p2_ft cofold top1,of3p2_ft,cofold,True,True,2.0,0.8,802,802,1.0,476,458,0.5935162094763092,0.571072319201995,1,25,"OpenFold3-p2
+fine-tuned",59.35162094763092,57.107231920199496,2.244389027431424,1
+of3p2_ft cofold top25,of3p2_ft,cofold,True,True,2.0,0.8,802,802,25.0,629,609,0.78428927680798,0.7593516209476309,25,25,"OpenFold3-p2
+fine-tuned",78.428927680798,75.93516209476309,2.493765586034911,1

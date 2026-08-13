@@ -1,0 +1,3 @@
+group,n_compounds,molecular_weight_median,molecular_weight_q25,molecular_weight_q75,clogp_median,clogp_q25,clogp_q75,tpsa_median,tpsa_q25,tpsa_q75,heavy_atom_count_median,heavy_atom_count_q25,heavy_atom_count_q75,nearest_same_class_tanimoto_median,nearest_same_class_tanimoto_q25,nearest_same_class_tanimoto_q75,nearest_opposite_class_tanimoto_median,nearest_opposite_class_tanimoto_q25,nearest_opposite_class_tanimoto_q75
+Binder,566,323.105,290.363,378.252,1.595,1.028,2.235,81.860,72.630,92.420,22.000,20.000,26.000,0.730,0.654,0.809,0.661,0.576,0.736
+Suspected non-binder,1518,318.442,295.340,347.454,1.995,1.249,2.795,72.950,62.300,86.178,22.000,21.000,24.000,0.653,0.547,0.724,0.425,0.299,0.603
