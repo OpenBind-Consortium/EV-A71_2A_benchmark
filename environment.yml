@@ -4,14 +4,15 @@ channels:
   - conda-forge
 
 dependencies:
-  - python=3.11
-  - numpy
-  - pandas
+  - python=3.12
+  - numpy=1.26.4
+  - pandas=2.3.3
   - scipy
-  - matplotlib
+  - matplotlib-base=3.10.9
+  - freetype=2.14.3
+  - pillow=12.2.0
   - pyarrow
-  - rdkit
+  - rdkit=2025.03.6
   - scikit-learn
-  - pillow
   - umap-learn
   - tqdm

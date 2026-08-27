@@ -4,7 +4,9 @@ This repository contains processed data, benchmark results, and analysis code fo
 
 The release combines crystallographic fragment screening, follow-on compound optimisation, and affinity measurements for enteroviral 2A protease, together with reference benchmarks for docking, co-folding, virtual screening, and affinity prediction.
 
-For more background, see our accompanying blog post, [OpenBind’s first release: A structure–affinity dataset for structure-based AI](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/), which discusses the release, the enteroviral 2A protease target, and the benchmark results in more detail.
+The accompanying preprint provides a detailed description of the dataset, experimental provenance, benchmark construction, and results: [OpenBind's first release: a structure–affinity dataset for structure-based AI](https://doi.org/10.64898/2026.08.27.747600).
+
+The release was first introduced in an [OpenBind blog post](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/), which provides a shorter overview of the dataset and project.
 
 ## Dataset overview
 
@@ -35,16 +37,25 @@ The main manuscript figures are generated from the processed data stored in this
 
 ## Data and external resources
 
-- **Experimental dataset:** [Zenodo](https://doi.org/10.5281/zenodo.20026661) and [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/preview/target/A71EV2A/tas/lb42888-1)
+- **Preprint:** [bioRxiv](https://doi.org/10.64898/2026.08.27.747600)
+- **Experimental dataset:** [Zenodo](https://doi.org/10.5281/zenodo.20026660) and [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/preview/target/A71EV2A/tas/lb42888-1)
+- **Prepared dataset, docking outputs, and cofolding predictions:** [Zenodo](https://zenodo.org/records/20798527)
 - **Blog post:** [OpenBind’s first release: A structure–affinity dataset for structure-based AI](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/)
 - **Experimental protocols:** [OpenBind protocols.io workspace](https://www.protocols.io/workspaces/openbind)
 - **Fine-tuned OpenFold3-p2 model:** [of3p2-ft-ev2a.ckpt](https://openfold3-data.s3.amazonaws.com/openfold3-parameters/openbind/of3p2-ft-ev2a.ckpt)
 
 The OpenFold3 model was fine-tuned on fragment-bound enteroviral 2A protease structures for target-specific follow-on compound prediction.
 
-## Environment
+## Installation
 
-Create the main analysis environment from the repository root:
+Clone the repository and enter the project directory:
+
+```bash
+git clone https://github.com/OpenBind-Consortium/EV-A71_2A_benchmark.git
+cd EV-A71_2A_benchmark
+```
+
+Create and activate the main analysis environment:
 
 ```bash
 conda env create -f environment.yml
@@ -67,6 +78,7 @@ See [`plotting/README.md`](plotting/README.md) for details of the plotting workf
 
 ## Citation and licence
 
+- Preprint DOI: [10.64898/2026.08.27.747600](https://doi.org/10.64898/2026.08.27.747600)
+- Dataset DOI: [10.5281/zenodo.20026660](https://doi.org/10.5281/zenodo.20026660)
 - Repository licence: [Apache 2.0](LICENSE)
 - Data licence: CC0 1.0 Universal
-- Dataset DOI: [10.5281/zenodo.20026661](https://doi.org/10.5281/zenodo.20026661)
