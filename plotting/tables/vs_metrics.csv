@@ -1,0 +1,9 @@
+family,method,metric,n_compounds,n_binders,n_nonbinders,roc_auc,average_precision,ef_1pct,ef_2pct,ef_5pct
+Docking,Smina (Vina),minimizedAffinity,2084,566,1518,0.623809,0.325646,0.525997,0.876662,0.911728
+Docking,GNINA (CNNscore),CNNscore,2084,566,1518,0.585918,0.370580,2.454653,2.366986,1.998788
+Docking,GNINA (CNN_VS),CNN_VS,2084,566,1518,0.664844,0.403720,2.279320,1.840989,1.613057
+Docking,GNINA (CNNaffinity),CNNaffinity,2084,566,1518,0.698115,0.424268,1.753323,1.577991,1.928656
+Co-folding,OpenFold3-p2 (Pair ipTM),pair_iptm,2084,566,1518,0.533343,0.279400,1.051994,0.876662,0.771462
+Co-folding,OpenFold3-p2-FT (Pair ipTM),pair_iptm,2084,566,1518,0.757082,0.525107,2.454653,2.191654,2.174121
+Baseline,Molecular weight,molecular_weight,2084,566,1518,0.538934,0.345167,1.928656,1.665657,1.613057
+Baseline,-cLogP,negative_clogp,2084,566,1518,0.600420,0.310203,0.000000,0.175332,0.631196

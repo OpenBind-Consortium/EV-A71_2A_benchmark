@@ -1,57 +1,72 @@
 # OpenBind Enteroviral 2A Protease dataset and benchmarks
 
-This repository contains data and reference benchmarks for the first [OpenBind](https://openbind.uk/) release: a structure–affinity dataset for structure-based AI.
+This repository contains processed data, benchmark results, and analysis code for the first [OpenBind](https://openbind.uk/) release: a structure–affinity dataset for structure-based AI and drug discovery.
 
-The release includes experimentally determined protein–ligand complexes, affinity measurements, and benchmark evaluations for docking, cofolding, and affinity prediction methods.
+The release combines crystallographic fragment screening, follow-on compound optimisation, and affinity measurements for enteroviral 2A protease, together with reference benchmarks for docking, co-folding, virtual screening, and affinity prediction.
 
 For more background, see our accompanying blog post, [OpenBind’s first release: A structure–affinity dataset for structure-based AI](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/), which discusses the release, the enteroviral 2A protease target, and the benchmark results in more detail.
 
-## Overview
+## Dataset overview
 
-The dataset focuses on CVA16 / EV-A71 2A protease and contains:
+The dataset focuses on CVA16 / EV-A71 2A protease and contains 925 crystallographic binding events from 699 compounds, together with affinity measurements for 601 compounds.
 
-- 925 crystallographic binding events  
-- 699 compounds  
-- 601 compounds with affinity measurements  
+<p align="center">
+  <img width="750" height="360" alt="EV2A_Overview_Figure_small"
+       src="https://github.com/user-attachments/assets/96059865-b839-41ea-a618-c055976234fc" />
+</p>
 
-This is a dense, single-target dataset designed for:
-- model training and fine-tuning  
-- benchmarking and comparison  
-- error analysis and method development  
+The dataset provides dense structural and affinity information from a coherent single-target discovery campaign, enabling evaluation of model behaviour across fragment-to-lead progression, local structure–activity relationships, protein–ligand pose prediction, virtual screening, and affinity prediction.
 
-Unlike many public resources, it provides both structure and affinity across a coherent compound series, making it valuable for studying local structure–activity relationships.
+## Repository structure
 
-## What’s included
+```text
+EV-A71_2A_benchmark/
+├── structure/            Processed structural benchmark data
+├── affinity/             Affinity measurements and prediction benchmark
+├── virtual_screening/    Virtual-screening benchmark and processed scores
+├── similarity_metrics/   Public-data structural similarity analysis
+└── plotting/             Manuscript plotting and summary-table generation
+```
 
-- Curated structure and affinity data (see data links below)
-- Prepared benchmark tables for plotting and analysis
-- Reference evaluations across:
-  - docking (classical and ML-based)
-  - cofolding methods
-  - affinity prediction
+The main manuscript figures are generated from the processed data stored in this repository. The underlying docking and co-folding calculations were produced using separate workflows:
 
+- [OpenBind docking](https://github.com/OpenBind-Consortium/openbind-docking) — docking preparation, execution, and structural evaluation
+- [cofolding_evaluation](https://github.com/OmeirK/cofolding_evaluation) — processing and evaluation of co-folding predictions
 
 ## Data and external resources
 
-- Blog post: [OpenBind’s first release: A structure–affinity dataset for structure-based AI](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/)
-- Dataset: [Zenodo](https://doi.org/10.5281/zenodo.20026661) / [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/preview/target/A71EV2A/tas/lb42888-1)  
-- Benchmarks: this repository  
-- Fine-tuned OpenFold3-p2 model: [of3p2-ft-ev2a.ckpt](https://openfold3-data.s3.amazonaws.com/openfold3-parameters/openbind/of3p2-ft-ev2a.ckpt). This model was fine-tuned only on the fragment-screen fine-tuning data and improves follow-on compound cofolding performance for this target. It likely has reduced performance on other targets, which we will address in future releases.
-- Experimental protocols: [OpenBind protocols.io workspace](https://www.protocols.io/workspaces/openbind) 
+- **Experimental dataset:** [Zenodo](https://doi.org/10.5281/zenodo.20026661) and [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/preview/target/A71EV2A/tas/lb42888-1)
+- **Blog post:** [OpenBind’s first release: A structure–affinity dataset for structure-based AI](https://openbind.uk/news/blog-openbinds-first-release-a-structure-affinity-dataset-for-structure-based-ai/)
+- **Experimental protocols:** [OpenBind protocols.io workspace](https://www.protocols.io/workspaces/openbind)
+- **Fine-tuned OpenFold3-p2 model:** [of3p2-ft-ev2a.ckpt](https://openfold3-data.s3.amazonaws.com/openfold3-parameters/openbind/of3p2-ft-ev2a.ckpt)
 
-## Usage
+The OpenFold3 model was fine-tuned on fragment-bound enteroviral 2A protease structures for target-specific follow-on compound prediction.
 
-To reproduce benchmark figures:
+## Environment
+
+Create the main analysis environment from the repository root:
+
+```bash
+conda env create -f environment.yml
+conda activate openbind-analysis
+```
+
+The public-data similarity workflow under `similarity_metrics/scripts/` uses a separate environment because it depends on additional structural-search software.
+
+## Reproducing the analysis
+
+The final manuscript figures and summary tables can be regenerated from the repository root with:
 
 ```bash
 python plotting/plot_figures.py
 ```
 
-See [`plotting/README.md`](https://github.com/OpenBind-Consortium/EV-A71_2A_benchmark/blob/main/plotting/README.md) for details.
+Figures are written to `plotting/figures/` and summary/source tables to `plotting/tables/`.
 
+See [`plotting/README.md`](plotting/README.md) for details of the plotting workflow and its inputs.
 
-## Citation and license
+## Citation and licence
 
-- Repository license: [Apache 2.0](https://github.com/OpenBind-Consortium/A71EV2A-benchmark/blob/main/LICENSE)
-- Data license: CC0 1.0 Universal  
-- DOI: [10.5281/zenodo.20026661](https://doi.org/10.5281/zenodo.20026661)  
+- Repository licence: [Apache 2.0](LICENSE)
+- Data licence: CC0 1.0 Universal
+- Dataset DOI: [10.5281/zenodo.20026661](https://doi.org/10.5281/zenodo.20026661)

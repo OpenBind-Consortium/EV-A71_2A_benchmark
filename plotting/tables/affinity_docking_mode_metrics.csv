@@ -1,0 +1,15 @@
+method,n,RMSE,Spearman rho,mean_prediction,family,mode
+mean_pkd,490,0.865271262579312,,5.114041170514232,GNINA,Mean pK$_D$
+gnina_crystal,490,1.529159869838699,0.4551604676285915,,GNINA,Crystal
+gnina_crystal_minimised,490,1.5728280037638411,0.44620948176272657,,GNINA,"Crystal
+(minimised)"
+gnina_redock,490,1.4756591266757064,0.4304891908482541,,GNINA,Redock
+gnina_fragment_crossdock,490,1.0839640369253902,0.3565097017258215,,GNINA,"Fragment
+Cross-dock"
+mean_pkd,490,0.865271262579312,,5.114041170514232,Smina,Mean pK$_D$
+smina_crystal,490,1.0889037125630074,0.239757744815863,,Smina,Crystal
+smina_crystal_minimised,490,1.2770212111057158,0.2602810147080157,,Smina,"Crystal
+(minimised)"
+smina_redock,490,1.0815083730594919,0.18862358475778632,,Smina,Redock
+smina_fragment_crossdock,490,0.9251701214224507,0.2845398429683351,,Smina,"Fragment
+Cross-dock"

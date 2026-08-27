@@ -1,104 +1,74 @@
-# Benchmark plotting
+# Manuscript plotting
 
-This directory contains the plotting code used to generate the EV-A71 2A benchmark figures.
+This directory contains the plotting workflow used to reproduce the main figures and summary tables for the OpenBind enteroviral 2A benchmark.
 
-The plotting script reads processed structure data and produces figures and summary tables.
+## Run
 
-## Directory structure
-
-```text
-plotting/
-  plot_figures.py
-  requirements.txt
-  figures/
-  tables/
-```
-
-Input data is stored outside this directory:
-
-```text
-structure/
-  processed_outputs/
-```
-
-## Dependencies
-
-Install required packages with:
+From the repository root:
 
 ```bash
-pip install -r plotting/requirements.txt
-```
-
-Main dependencies:
-
-- numpy  
-- pandas  
-- matplotlib  
-- pyarrow or fastparquet  
-
-## Inputs
-
-By default, the script expects the following files in:
-
-```text
-structure/processed_outputs/
-```
-
-- `annotated_complexes.csv`  
-- `final_docking_pose_data.parquet`  
-- `final_cofolding_pose_data.parquet`  
-
-The SuCOS/public-data similarity file is read from:
-
-```text
-similarity_metrics/tsv_similarity_data_2021-09-30_v2.tsv
-```
-
-This can be overridden using `--sucos-file`.
-
-## Outputs
-
-Generated files are written to:
-
-```text
-plotting/figures/
-plotting/tables/
-```
-
-- `figures/`: PNG plots  
-- `tables/`: CSV summary tables used to generate figures  
-
-## Usage
-
-Run from the repository root:
-
-```bash
+conda activate openbind-analysis
 python plotting/plot_figures.py
 ```
 
-Optional arguments:
+The standard run uses the final curated benchmark inputs and writes PNG figures to:
 
-```bash
-python plotting/plot_figures.py \
-  --processed-data-dir structure/processed_outputs \
-  --figures-dir plotting/figures \
-  --tables-dir plotting/tables \
-  --top-n 25
+```text
+plotting/figures/
 ```
 
-To skip the similarity plot:
+and CSV summary/source tables to:
 
-```bash
-python plotting/plot_figures.py --skip-sucos
+```text
+plotting/tables/
 ```
 
-## Benchmark settings
+## Inputs
 
-The default plotting workflow uses:
+The plotting workflow combines processed results from the structural, affinity, virtual-screening, fragment-series, and public-data similarity analyses.
 
-- top 25 poses per method
-- RMSD threshold: 2.0 Å
-- LDDT-PLI threshold: 0.8
-- filtered scaffold-only subsets for the main comparison figures
+The principal inputs are:
 
-The pocket-aligned RMSD and LDDT-PLI metrics were computed against the ground-truth structures using the [OST compare-ligand-structures](https://openstructure.org/docs/2.11/actions/#comparing-two-structures-with-ligands) command. The thresholds applied to these metrics are encoded in the prepared input tables as the `rmsd_valid`, `lddt_pli_valid`, and `success_valid columns`.
+```text
+structure/processed_outputs/annotated_complexes.csv
+structure/processed_outputs/final_docking_pose_data.parquet
+structure/processed_outputs/final_cofolding_pose_data.parquet
+structure/processed_outputs/fragment_followon_similarity.csv
+
+similarity_metrics/tsv_similarity_data_2021-09-30_v2.tsv
+similarity_metrics/tsv_similarity_data_2023-06-01_v2.tsv
+
+virtual_screening/benchmark/virtual_screening_benchmark.csv
+virtual_screening/results/
+
+affinity/outputs/compound_level_prediction_analysis.csv
+```
+
+The structural benchmark uses 881 curated complexes, comprising 79 fragment-screen complexes and 802 follow-on complexes. The final affinity benchmark contains 490 compounds after structure-level quality filtering and compound-level aggregation.
+
+## Plotting modules
+
+Individual plotting and analysis functions are stored under:
+
+```text
+plotting/scripts/
+```
+
+The top-level `plot_figures.py` runner provides the manuscript analysis configuration and calls these modules using the final curated inputs.
+
+Structural success is defined using ligand heavy-atom RMSD, LDDT-PLI, and PoseBusters validity. The default manuscript thresholds are RMSD ≤ 2 Å and LDDT-PLI ≥ 0.8.
+
+Alternative input paths or structural thresholds can be inspected with:
+
+```bash
+python plotting/plot_figures.py --help
+```
+
+## Environment
+
+The plotting dependencies are included in the repository-level environment:
+
+```bash
+conda env create -f environment.yml
+conda activate openbind-analysis
+```

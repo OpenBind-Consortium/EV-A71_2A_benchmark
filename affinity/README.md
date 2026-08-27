@@ -1,51 +1,52 @@
-# Affinity Benchmark Data
+# Affinity benchmark
 
-## Structure
+This directory contains the experimental affinity measurements and processed prediction results used for the OpenBind enteroviral 2A affinity benchmark.
+
+## Contents
 
 ```text
 affinity/
-  all_affinity_data_release_v1.csv
-  README.md
-  reference/
-  predictions/
+├── all_affinity_data_release_v1.csv
+├── reference/
+├── predictions/
+├── scripts/
+└── outputs/
 ```
 
-## Experimental Data
+`all_affinity_data_release_v1.csv` contains the row-level experimental affinity measurements.
 
-`all_affinity_data_release_v1.csv` contains row-level affinity measurements.
+`reference/` contains the processed experimental reference information used to connect affinity measurements to the structural dataset.
 
-`Used in analysis` denotes the entries that were included in the analysis based on several filters. Reference pKD values were calculated from included rows only.
+`predictions/` contains structure-level affinity predictions. GNINA and Smina predictions from the evaluated docking protocols are stored together in `docking_affinity_predictions.csv`; other prediction methods and descriptor baselines are stored separately.
 
-## Reference
+## Compound-level benchmark
 
-`reference/experimental_reference_ground_truth.csv` has one row per Fragalysis structure:
-
-Blank `experimental_pKD` means no affinity value was available for that structure after filtering.
-
-`reference/fragalysis_compound_reference.csv` maps `fragalysis_code` to `smiles`
-
-## Predictions
-
-Each file in `predictions/` has:
+Affinity measurements and predictions are cross-referenced against:
 
 ```text
-method
-fragalysis_code
-predicted_affinity
+structure/processed_outputs/annotated_complexes.csv
 ```
 
-`molecular_weight` and `clogp` are raw property values.
+Binding events annotated as PoseBusters-invalid or suspected crystallographic artefacts are excluded before compound-level aggregation.
 
-## Score Conversions
+For compounds with multiple retained crystallographic binding events, structure-level predictions are averaged to obtain one prediction per compound.
 
-In cases where the raw scores were not in pK units, we converted them as follows:
+The final curated affinity benchmark contains 490 compounds.
+
+Regenerate the compound-level analysis table from the repository root with:
+
+```bash
+python affinity/scripts/build_compound_level_affinity_predictions.py \
+    affinity/predictions \
+    --reference affinity/reference/fragalysis_compound_reference.csv \
+    --annotated-complexes structure/processed_outputs/annotated_complexes.csv \
+    --output affinity/outputs/compound_level_prediction_analysis.csv
+```
+
+The resulting table:
 
 ```text
-smina:      predicted_affinity = -affinity / (R * T * ln(10)), T = 298.15 K
-AQAffinity: predicted_affinity = predicted_affinity_score + 6
-Boltz-2:    predicted_affinity = 6 - predicted_affinity_score
+affinity/outputs/compound_level_prediction_analysis.csv
 ```
 
-## Analysis
-
-Analysis was conducted at the compound-level, i.e. predictions from multiple structures for the same compound were averaged.
+is used directly by the manuscript plotting workflow.

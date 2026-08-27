@@ -1,0 +1,17 @@
+name: openbind-analysis
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - matplotlib
+  - pyarrow
+  - rdkit
+  - scikit-learn
+  - pillow
+  - umap-learn
+  - tqdm
